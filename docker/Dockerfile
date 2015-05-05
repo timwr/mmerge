@@ -20,19 +20,20 @@ RUN apt-get install -y bison flex gcc gcc-multilib jam make wget
 RUN apt-get install -y maven openjdk-7-jdk
 
 # Android sdk
-#RUN wget http://dl.google.com/android/android-sdk_r24-linux.tgz
-#RUN tar -xvf android-sdk_r24-linux.tgz
-#RUN rm android-sdk_r24-linux.tgz
-ADD deps/android-sdk_r24.0.2-linux.tgz /usr/local
-RUN mv /usr/local/android-sdk-linux /usr/local/android-sdk
+RUN wget http://dl.google.com/android/android-sdk_r24-linux.tgz
+RUN tar xf android-sdk_r24-linux.tgz
+RUN rm android-sdk_r24-linux.tgz
+RUN mv android-sdk-linux /usr/local/android-sdk
 RUN echo y | /usr/local/android-sdk/tools/android update sdk --filter tools --no-ui -a
 RUN echo y | /usr/local/android-sdk/tools/android update sdk --filter platform-tools --no-ui -a
 RUN echo y | /usr/local/android-sdk/tools/android update sdk --filter android-3 --no-ui -a
 
-#RUN curl -L -O http://dl.google.com/android/ndk/android-ndk-r9d-linux-x86_64.tar.bz2
-#RUN tar xf android-ndk-r10b-linux-x86_64.tar.bz2
-ADD deps/android-ndk-r9d-linux-x86_64.tar.bz2 /usr/local
-RUN mv /usr/local/android-ndk-r9d /usr/local/android-ndk
+RUN wget http://dl.google.com/android/ndk/android-ndk-r9d-linux-x86_64.tar.bz2
+RUN tar xf android-ndk-r9d-linux-x86_64.tar.bz2
+RUN mv android-ndk-r9d /usr/local/android-ndk
+RUN rm android-ndk-r9d-linux-x86_64.tar.bz2
+
+#RUN mvn package -Dandroid.sdk.path=/usr/local/android-sdk -Dandroid.ndk.path=/usr/local/android-ndk -Dandroid.release=true -P deploy
 
 #ADD deps/android-ndk-r10d-linux-x86_64.bin /tmp
 #RUN chmod 755 /tmp/android-ndk-r10d-linux-x86_64.bin
